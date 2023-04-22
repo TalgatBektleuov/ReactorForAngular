@@ -125,8 +125,20 @@
             "tsConfig": "projects/reactor-for-angular/tsconfig.spec.json",
             "karmaConfig": "projects/reactor-for-angular/karma.conf.js"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/reactor-for-angular/src/**/*.ts",
+              "projects/reactor-for-angular/src/**/*.html"
+            ]
+          }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
