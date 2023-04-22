@@ -8,6 +8,7 @@ This library supports both React 17 and 18 root API.
 
 - Install the library: `npm i reactor-for-angular`
 - Write your wrapper:
+
 ```@Component({
   selector: 'react-component-wrapper',
   template: `<span #title>Here will be a component</span>`
@@ -16,7 +17,7 @@ This library supports both React 17 and 18 root API.
   export class ReactComponentWrapper {
     @ViewChild('title') viewChild: Element = {} as Element;
     @Input() public parameter!: string;
-  
+
     getElement() {
       return <RealReactComponent parameter={this.parameter} method={() => {}} />
     }

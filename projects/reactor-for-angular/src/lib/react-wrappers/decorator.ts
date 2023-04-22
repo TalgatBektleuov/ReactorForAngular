@@ -1,17 +1,22 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement } from 'react';
 
 // @ts-ignore
-import ReactDOM from "react-dom";
+import ReactDOM from 'react-dom';
 
 export const ReactorReact = () => {
-  return <T extends { new (...args: any[]): { getElement: () => ReactElement, viewChild: Element } }>(constructor: T) => {
-    const LIFECYCLE_HOOKS = [
-      'ngAfterViewInit',
-      'ngOnChanges',
-      'ngOnDestroy'
-    ];
+  return <
+    T extends {
+      new (...args: any[]): {
+        getElement: () => ReactElement;
+        viewChild: Element;
+      };
+    }
+  >(
+    constructor: T
+  ) => {
+    const LIFECYCLE_HOOKS = ['ngAfterViewInit', 'ngOnChanges', 'ngOnDestroy'];
 
-    LIFECYCLE_HOOKS.forEach(hook => {
+    LIFECYCLE_HOOKS.forEach((hook) => {
       const original = constructor.prototype[hook];
       const reactVersion = React.version.split('.')[0];
 
@@ -28,7 +33,7 @@ export const ReactorReact = () => {
               ReactDOM.render(this.getElement(), this.viewChild.nativeElement);
             }
             original && original.apply(this, args);
-          }
+          };
           break;
         case 'ngOnChanges':
           constructor.prototype[hook] = function (...args: any[]) {
@@ -37,10 +42,14 @@ export const ReactorReact = () => {
               if (this.root) this.root.render(this.getElement());
             } else {
               // @ts-ignore
-              if (this.viewChild.nativeElement) ReactDOM.render(this.getElement(), this.viewChild.nativeElement);
+              if (this.viewChild.nativeElement)
+                ReactDOM.render(
+                  this.getElement(),
+                  this.viewChild.nativeElement
+                );
             }
             original && original.apply(this, args);
-          }
+          };
           break;
         case 'ngOnDestroy':
           constructor.prototype[hook] = function (...args: any[]) {
@@ -52,9 +61,9 @@ export const ReactorReact = () => {
               ReactDOM.unmountComponentAtNode(this.viewChild.nativeElement);
             }
             original && original.apply(this, args);
-          }
+          };
           break;
       }
     });
-  }
-}
+  };
+};
