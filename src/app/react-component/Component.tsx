@@ -8,3 +8,5 @@ interface RealReactComponentProps {
 export const RealReactComponent: FC<RealReactComponentProps> = ({ parameter, method }) => {
   return <p>{parameter ? parameter : 'Test'}</p>;
 }
+
+const f = 's'
